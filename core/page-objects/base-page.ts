@@ -58,4 +58,28 @@ export default class BasePage {
         const element = await this.driver.wait(until.elementLocated(locator), timeout);
         return this.driver.wait(until.elementIsVisible(element), timeout);
     }
+    async sleep(milliseconds: number) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
+    async waitForElementToBeClickable(locator: By, timeout: number) {
+        const element = await this.findElement(locator);
+        
+        await this.driver.wait(async () => {
+            try {
+                await this.driver.actions().click(element).perform();
+                // Introduce a delay after the click to allow for any subsequent actions
+                await this.sleep(1000); // Adjust the delay as needed
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }, timeout);
+    }
+    
+    
+    
+    async waitForElementToBeVisible(element: WebElement, timeout: number) {
+        await this.driver.wait(until.elementIsVisible(element), timeout);
+    }
+    
 }
