@@ -1,0 +1,20 @@
+{
+    "url": {
+        "home_page": "https://www.stradivarius.com/ba/en/"
+    },
+
+    "data":{
+        "email" : "dedicemina11@gmail.com"
+    },
+
+    "credentials": {
+        "name": "Emina",
+        "last_name": "Dedic",
+        "password": "Letmein2024",
+        "telephone_number":"62408194"
+    },
+    "verification_message": {
+        "registartion_message": "Your account has been created."
+    }
+
+}
