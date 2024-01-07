@@ -15,35 +15,45 @@ export class HomePage extends BasePage {
     private navigationBar = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]");
     private navigationBarOption1 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[1]/a");
     private navigationBarOption2 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[2]/div/div[1]/section/div[9]/a");
+    private openCart = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[3]/div[4]");
+    private closeNavigationBarButton = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[1]/svg"); 
+    private returnToHomeButton = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/svg"); 
 
 
     async clickUserAccountIcon() {
         await this.findElementAndClick(this.userAccountIcon);
     }
     async enterSearchQuery(query: string) {
-        // Click on the search bar to open the dropdown
+        const searchInputField = By.id("colbenson-search-input");
+    
         await this.findElementAndClick(this.searchBar);
-
-        // Find the input field within the dropdown and fill it with the query
-        const inputField = By.id("colbenson-search-input");
-        await this.fillInputField(inputField, query);
-
-        // Press Enter to perform the search
-        const inputElement = await this.findElement(inputField);
-        await inputElement.sendKeys('\uE007');  
+    
+        await this.waitForElement(searchInputField,20000);
+    
+        await this.sleep(1000);
+    
+        await this.fillInputField(searchInputField, query);
+    
+        await this.sleep(1000);
+    
+        const searchButton = By.className("search-button-container");
+        await this.findElementAndClick(searchButton);
     }
-
+    
+    async clearInputField(inputField: By) {
+        const inputElement = await this.waitForElement(inputField,20000);
+        await inputElement.clear();
+    }
+    
     async clickNavigationBarIcon() {
         await this.findElementAndClick(this.navigationBarIcon);    }
 
     async isNavigationBarOpen() {
-        // Implement logic to check if the navigation bar is open
         const navigationBar = await this.findElement(this.navigationBar);
         return navigationBar.isDisplayed();
     }
 
     async isNavigationBarOption1Open() {
-        // Implement logic to check if the navigation bar is open
         const navigationBar = await this.findElement(this.navigationBarOption1);
         return navigationBar.isDisplayed();
     }
@@ -54,14 +64,12 @@ export class HomePage extends BasePage {
     
     async selectNavigationBarOption1(option: string) {
         await this.findElementAndClick(this.navigationBarOption1);
-        // Introduce a delay to allow the next options to fully load
-        await this.sleep(1000); // Adjust the delay as needed
+        await this.sleep(1000); 
     }
     
-async selectNavigationBarOption2(option: string) {
+    async selectNavigationBarOption2(option: string) {
     await this.findElementAndClick(this.navigationBarOption2);
-    // Introduce a delay to allow the next options to fully load
-    await this.sleep(1000); // Adjust the delay as needed
+    await this.sleep(1000); 
 }
     async waitForNavigationBar(timeout: number = 5000) {
         const navigationBarElement = this.getNavigationBar();
@@ -72,4 +80,28 @@ async selectNavigationBarOption2(option: string) {
     getNavigationBar() {
         return this.navigationBar;
     }
+
+    async selectCategoryFromNavigationBar(category: string) {
+    const categoryLocator = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[2]/div/a");
+    await this.findElementAndClick(categoryLocator);
+}
+async isHomePageLoadedWithoutErrors() {
+    const errorIndicator = By.className("error-message");
+    
+    try {
+        await this.driver.wait(until.stalenessOf(await this.findElement(errorIndicator)), 5000);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+async selectCart() {
+    await this.findElementAndClick(this.openCart);
+}
+
+async returnToHomePage() {
+        const returnBtn = await this.findElementAndClick(this.returnToHomeButton);
+   
+}
 }

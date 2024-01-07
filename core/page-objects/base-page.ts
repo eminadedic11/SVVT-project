@@ -41,12 +41,17 @@ export default class BasePage {
                     .perform();
     }
     async fillInputField(inputField: By, text: string) {
-        await (await this.findElement(inputField)).sendKeys(text);
+        //await (await this.findElement(inputField)).sendKeys(text);
+        const inputElement = await this.waitForElement(inputField,20000);
+        console.log(`Filling input field located by: ${inputField.toString()}`);
+        console.log(`Text to be entered: ${text}`);
+        await inputElement.clear();
+        await inputElement.sendKeys(text);
     }  
     
     async navigateTo(url: string) {
         await this.driver.get(url);
-        await this.driver.manage().window().maximize(); // (optional) maximize the window after navigating to the URL
+        await this.driver.manage().window().maximize(); 
     }
     
     async clickButton(selector: By) {
@@ -67,19 +72,24 @@ export default class BasePage {
         await this.driver.wait(async () => {
             try {
                 await this.driver.actions().click(element).perform();
-                // Introduce a delay after the click to allow for any subsequent actions
-                await this.sleep(1000); // Adjust the delay as needed
+                await this.sleep(1000); 
                 return true;
             } catch (error) {
                 return false;
             }
         }, timeout);
     }
-    
-    
-    
+        
     async waitForElementToBeVisible(element: WebElement, timeout: number) {
         await this.driver.wait(until.elementIsVisible(element), timeout);
     }
     
+    async isElementPresent(locator: By, timeout: number = 5000) {
+        try {
+            await this.driver.wait(until.elementLocated(locator), timeout);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
 }

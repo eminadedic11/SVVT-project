@@ -24,23 +24,17 @@ describe("Test Scenario 1: Create Account Functionality", () => {
         const dataFilePath = path.resolve(__dirname, "../core/data/data.json");
         const testData = JSON.parse(readFileSync(dataFilePath, "utf8"));
 
-        // Navigate to the home page
         await homePage.navigateTo(testData.url.home_page);
         expect(await homePage.getTitle()).toContain("Stradivarius");
 
-        // Click on user account icon
         await homePage.clickUserAccountIcon();
 
-        // After clicking on the user account icon, check if you are on the login page
         expect(await loginCreatePage.getTitle()).toContain("Log in");
 
-        // Click on create account button
         await loginCreatePage.clickCreateAccountButton();
 
-        // After clicking the "Create Account" button, check if you are on the account creation page
         expect(await accountCreationPage.getTitle()).toContain("Log in");
 
-        // Fill account details
         await accountCreationPage.fillAccountDetails(
             testData.credentials.name,
             testData.credentials.last_name,
@@ -49,9 +43,7 @@ describe("Test Scenario 1: Create Account Functionality", () => {
             testData.credentials.telephone_number
         );
 
-        // Click on create account button
         await accountCreationPage.clickCreateAccountButton();
 
-    
     }, 15000);
 });

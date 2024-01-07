@@ -3,7 +3,6 @@ import { readFileSync } from "fs";
 import * as path from "path";
 import { HomePage } from "../core/page-objects/home-page";
 import { LoginCreate } from "../core/page-objects/logincreate-page";
-//import { ProductSearchPage } from "../core/page-objects/product-search-page";
 
 describe("Test Scenario 3: Test the Product search functionality", () => {
     let driver: WebDriver;
@@ -23,12 +22,11 @@ describe("Test Scenario 3: Test the Product search functionality", () => {
         const testData = JSON.parse(readFileSync(dataFilePath, "utf8"));
     
         await homePage.navigateTo(testData.url.home_page);
-        expect(await homePage.getTitle()).toContain("Stradivarius");
+       expect(await homePage.getTitle()).toContain("Stradivarius");
+
+       await homePage.enterSearchQuery("Ankle boots");
+       await homePage.sleep(3000);
     
-        await homePage.enterSearchQuery("Ankle boots");
-    
-        // Assert or log information about the page you land on after the search
-        console.log(await homePage.getTitle());
-    }, 15000);
+    }, 30000);
     
 });
