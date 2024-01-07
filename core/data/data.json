@@ -8,7 +8,9 @@
     "data":{
         "email" : "dedicemina11@gmail.com"
     },
-
+    "location": {
+        "country": "Bosnia"
+    },
     "credentials": {
         "name": "Emina",
         "last_name": "Dedic",

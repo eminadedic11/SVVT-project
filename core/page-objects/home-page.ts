@@ -20,7 +20,14 @@ export class HomePage extends BasePage {
     private returnToHomeButton = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/svg"); 
     private navigationBarOption3 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[1]/a");
     private navigationBarOption4 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[2]/div/div[2]/section/div[2]/a");
-
+    private cookieButton = By.className('onetrust-close-btn-handler banner-close-button ot-close-icon');
+    private countryField = By.id('inputWorldWideSearcher');
+    private desiredCountry = By.className('suggestion-item selected-option');
+    private enterButton = By.className('STRButton-text');
+    private profileButton = By.xpath('/html/body/div[16]/div/div[1]/div/div[1]/div/div[3]/div[2]/div[2]/div');
+    private email = By.id('email');
+    private password = By.xpath('//input[@type="password"]');
+    private login = By.xpath('//button[@class="STRButton STRButton_primary STRButton_large"]//div[@class="STRButton-text"]');
     async clickUserAccountIcon() {
         await this.findElementAndClick(this.userAccountIcon);
     }
@@ -119,5 +126,32 @@ async selectCart() {
 async returnToHomePage() {
         const returnBtn = await this.findElementAndClick(this.returnToHomeButton);
    
+}
+private osobniPodaci = By.xpath('//a[@data-cy="personal-data"]');
+private nameField = By.id('firstName');
+
+constructor(driver: WebDriver) {
+    super(driver);
+}
+async clickCookie() {
+    await this.driver.sleep(1500);
+    await this.findElementAndClick(this.cookieButton);
+    await this.driver.sleep(1500);
+}
+async setCountry() {
+    await this.fillInputField(this.countryField, testData.location.country);
+    await this.driver.sleep(1500);
+}
+async selectCountry() {
+    await this.findElementAndClick(this.desiredCountry);
+    await this.driver.sleep(1500);
+}
+async continue() {
+    await this.findElementAndClick(this.enterButton);
+    await this.driver.sleep(1500);
+}
+async openProfile() {
+    await this.findElementAndClick(this.profileButton);
+    await this.driver.sleep(1500);
 }
 }
