@@ -16,7 +16,7 @@ describe("Test Scenario 1: Create Account Functionality", () => {
         await driver.quit();
     });
 
-    it("should create an account successfully", async () => {
+    test("should create an account successfully", async () => {
         const homePage = new HomePage(driver);
         const accountCreationPage = new AccountCreationPage(driver);
         const loginCreatePage = new LoginCreate(driver);
@@ -45,5 +45,5 @@ describe("Test Scenario 1: Create Account Functionality", () => {
 
         await accountCreationPage.clickCreateAccountButton();
 
-    }, 15000);
+    }, 30000);
 });

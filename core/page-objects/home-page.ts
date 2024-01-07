@@ -18,7 +18,8 @@ export class HomePage extends BasePage {
     private openCart = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[3]/div[4]");
     private closeNavigationBarButton = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[1]/svg"); 
     private returnToHomeButton = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/svg"); 
-
+    private navigationBarOption3 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[1]/a");
+    private navigationBarOption4 = By.xpath("/html/body/div[16]/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div/div[1]/div/div/div[2]/div[4]/div[2]/div/div[2]/section/div[2]/a");
 
     async clickUserAccountIcon() {
         await this.findElementAndClick(this.userAccountIcon);
@@ -61,6 +62,12 @@ export class HomePage extends BasePage {
         const navigationBar = await this.findElement(this.navigationBarOption2);
         return this.waitForElementToBeVisible(navigationBar, 5000);
     }
+
+    async isNavigationBarOption4Open() {
+        const navigationBar = await this.findElement(this.navigationBarOption4);
+        return this.waitForElementToBeVisible(navigationBar, 5000);
+    }
+    
     
     async selectNavigationBarOption1(option: string) {
         await this.findElementAndClick(this.navigationBarOption1);
@@ -70,6 +77,15 @@ export class HomePage extends BasePage {
     async selectNavigationBarOption2(option: string) {
     await this.findElementAndClick(this.navigationBarOption2);
     await this.sleep(1000); 
+}
+async selectNavigationBarOption3(option: string) {
+    await this.findElementAndClick(this.navigationBarOption3);
+    await this.sleep(1000); 
+}
+
+async selectNavigationBarOption4(option: string) {
+await this.findElementAndClick(this.navigationBarOption4);
+await this.sleep(1000); 
 }
     async waitForNavigationBar(timeout: number = 5000) {
         const navigationBarElement = this.getNavigationBar();

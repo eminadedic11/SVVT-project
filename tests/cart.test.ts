@@ -20,7 +20,7 @@ describe("Test Scenario 5: Test the Shopping Cart Functionality", () => {
         await driver.quit();
     });
 
-    it("should add a product to the shopping cart and verify", async () => {
+    test("should add a product to the shopping cart and verify", async () => {
         const homePage = new HomePage(driver);
 const productPage = new ProductPage(driver);
         const productDetailsPage = new ProductDetailsPage(driver);

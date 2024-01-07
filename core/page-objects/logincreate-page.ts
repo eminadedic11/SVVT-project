@@ -42,10 +42,21 @@ export class LoginCreate extends BasePage {
         await this.fillInputField(this.passwordInput, password);
     }
 
-    async clickSignInButton() {
+    async clickSignInButton(): Promise<MyAccountPage> {
         await this.findElementAndClick(this.signInButton);
-        return new MyAccountPage(this.driver);
-       }
+
+        // Wait for My Account page to be visible
+        const myAccountPage = new MyAccountPage(this.driver);
+        await myAccountPage.waitForMyAccountPage(); // Ensure this method waits for the relevant elements
+
+        // Verify if we are on the correct page
+        const isMyAccountPageVisible = await myAccountPage.isMyAccountPageVisible();
+        if (!isMyAccountPageVisible) {
+            throw new Error("Failed to navigate to My Account page after login.");
+        }
+
+        return myAccountPage;
+    }
 
     async isLoginOptionVisible() {
         const loginOption = By.xpath("/html/body/div[16]/div/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div/div/div/div/div/form/div/div[4]/div/div/button");

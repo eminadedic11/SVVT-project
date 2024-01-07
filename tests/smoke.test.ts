@@ -20,7 +20,7 @@ describe("Smoke Test: Basic Functionality", () => {
         await driver.quit();
     });
 
-    it("should verify basic functionality", async () => {
+    test("should verify basic functionality", async () => {
         const homePage = new HomePage(driver);
         const productPage = new ProductPage(driver);
         const productDetailsPage = new ProductDetailsPage(driver);

@@ -14,7 +14,7 @@ describe("Test Scenario 4: Test the Product Category Navigation", () => {
         await driver.quit();
     });
 
-    it("should navigate to the Dresses category successfully", async () => {
+    test("should navigate to the Dresses category successfully", async () => {
         const homePage = new HomePage(driver);
 
         const dataFilePath = path.resolve(__dirname, "../core/data/data.json");

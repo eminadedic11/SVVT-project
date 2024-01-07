@@ -92,4 +92,12 @@ export default class BasePage {
             return false;
         }
     }
+    async clickElement(element: WebElement) {
+        await this.driver.wait(
+            until.elementIsVisible(element),
+            10000
+        );
+        await element.click();
+    }
+    
 }

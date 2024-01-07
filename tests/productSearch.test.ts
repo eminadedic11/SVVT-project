@@ -15,7 +15,7 @@ describe("Test Scenario 3: Test the Product search functionality", () => {
         await driver.quit();
     });
 
-    it("should search for ankle boots successfully", async () => {
+    test("should search for ankle boots successfully", async () => {
         const homePage = new HomePage(driver);
     
         const dataFilePath = path.resolve(__dirname, "../core/data/data.json");

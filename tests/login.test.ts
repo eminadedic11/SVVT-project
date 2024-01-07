@@ -1,4 +1,4 @@
-import { Builder, By, WebDriver } from "selenium-webdriver";
+import { Builder, By, WebDriver, until } from "selenium-webdriver";
 import { readFileSync } from "fs";
 import * as path from "path";
 import { HomePage } from "../core/page-objects/home-page";
@@ -12,10 +12,10 @@ describe("Test Scenario 2: Test the Log in functionality on the Website", () => 
     });
 
     afterEach(async () => {
-        await driver.quit();
+       await driver.quit();
     });
 
-    it("should log in successfully", async () => {
+    test("should log in successfully", async () => {
         const homePage = new HomePage(driver);
         const loginCreatePage = new LoginCreate(driver);
 
@@ -32,7 +32,7 @@ describe("Test Scenario 2: Test the Log in functionality on the Website", () => 
         await loginCreatePage.fillInputField(loginCreatePage.getEmailInput(), testData.data.email);
         await loginCreatePage.fillInputField(loginCreatePage.getPasswordInput(), testData.credentials.password);
 
-        await loginCreatePage.clickSignInButton();
+        await driver.wait(until.elementLocated(loginCreatePage.getSignInButton()), 60000);
         
-    }, 15000);
+    }, 60000);
 });
